@@ -1,0 +1,19 @@
+// prisma/schema.prisma
+datasource db {
+  provider = "mysql" // Use "mariadb" for MariaDB
+  url      = env("DATABASE_URL")
+}
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+model File {
+  id           Int      @id @default(autoincrement())
+  filename     String
+  originalname String
+  mimetype     String
+  size         Int
+  data         String   @db.LongText // This should be a String to store Base64 data
+  uploadDate   DateTime @default(now())
+}
